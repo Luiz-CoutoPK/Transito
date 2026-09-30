@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Mobilidade Segura</title>
+
+    <link rel="stylesheet"
+        href="style.css">
+
+</head>
+
+<body>
+
+<section id="telaStart" aria-label="Tela inicial do jogo">
+    <div class="tela-start-arte">
+        <img src="ChatGPT%20Image%2030_09_2026%2C%2010_44_11.png" alt="Mobilidade Segura. Aprenda, pilote e chegue com segurança.">
+        <button id="botaoStart" type="button" aria-label="Start: abrir o mapa de fases"></button>
+    </div>
+</section>
+
+<!-- ========================= -->
+<!-- MAPA DE SELEÇÃO DE FASES -->
+<!-- ========================= -->
+
+<section id="mapaFases" aria-labelledby="tituloMapaFases">
+    <div class="mapa-quadro">
+        <img src="imagem.png" alt="Mapa da cidade com caminhos para as fases">
+
+        <div class="mapa-titulo">
+            <span>Mobilidade Segura</span>
+            <h1 id="tituloMapaFases">Selecione uma fase</h1>
+        </div>
+
+        <button class="fase-mapa fase-1 desbloqueada" type="button" data-fase="1" aria-label="Iniciar fase 1: Casa">
+            <span>1</span>
+            <span class="fase-pontos oculto" data-fase-pontos="1" aria-hidden="true"></span>
+            <small>Casa</small>
+        </button>
+
+        <button class="fase-mapa fase-2 bloqueada" type="button" data-fase="2" aria-label="Fase 2 bloqueada: Shop" aria-disabled="true" disabled>
+            <span>2</span>
+            <span class="fase-pontos oculto" data-fase-pontos="2" aria-hidden="true"></span>
+            <small>Shop</small>
+        </button>
+
+        <button class="fase-mapa fase-3 bloqueada" type="button" data-fase="3" aria-label="Fase 3 bloqueada: Última rua" aria-disabled="true" disabled>
+            <span>3</span>
+            <span class="fase-pontos oculto" data-fase-pontos="3" aria-hidden="true"></span>
+            <small>Última rua</small>
+        </button>
+
+        <p class="mapa-dica">Escolha uma fase para começar a rota.</p>
+    </div>
+</section>
+
+<section id="mensagemConclusao" class="mensagem-conclusao oculto" role="dialog" aria-modal="true" aria-labelledby="tituloConclusao" aria-describedby="detalhesConclusao">
+    <div class="mensagem-conclusao-painel">
+        <h2 id="tituloConclusao">Fase concluída!</h2>
+        <p id="detalhesConclusao"></p>
+        <button id="botaoVoltarMapaConclusao" type="button">Voltar ao mapa e jogar novamente</button>
+    </div>
+</section>
+
+<section id="faseExterna" class="oculto" aria-label="Fase em andamento">
+    <button id="voltarMapa" type="button" aria-label="Voltar ao mapa de fases">Voltar ao mapa</button>
+    <iframe id="quadroFase" title="Fase da Rota Segura" allow="autoplay"></iframe>
+</section>
+
+<div id="jogo">
+
+    <!-- ========================= -->
+    <!-- HUD -->
+    <!-- ========================= -->
+
+    <div id="hud">
+
+        <div class="hud-lado">
+
+            <div class="hud-caixa">
+                ❤️ <span id="vidas">3</span>
+            </div>
+
+            <div class="hud-caixa">
+                ⭐ <span id="pontos">0</span>
+            </div>
+
+            <div class="hud-caixa estrelas-hud">
+                ✨ <span id="estrelas">0/3</span>
+            </div>
+
+        </div>
+
+
+        <div class="hud-centro">
+
+            <div id="tituloFase">
+                FASE FINAL — CAMINHO PARA A ESCOLA
+            </div>
+
+            <div id="barraProgresso">
+
+                <div id="progresso"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hud-caixa">
+
+            ⏱️ <span id="tempo">0:00</span>
+
+        </div>
+
+    </div>
+
+    <div id="avisoPare" class="aviso-pare oculto" aria-live="polite">
+        PARE ANTES DA FAIXA <span id="contadorPare"></span>
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- CENÁRIO -->
+    <!-- ========================= -->
+
+    <div id="cenario">
+
+        <div id="mundo">
+
+
+            <!-- ========================= -->
+            <!-- CENÁRIO SUPERIOR -->
+            <!-- ========================= -->
+
+            <div id="cidadeSuperior"></div>
+
+
+            <!-- ========================= -->
+            <!-- ESTRADA -->
+            <!-- ========================= -->
+
+            <div id="rua">
+
+
+                <!-- bordas -->
+
+                <div class="bordaEstrada bordaCima"></div>
+
+                <div class="bordaEstrada bordaBaixo"></div>
+
+
+                <!-- linha central -->
+
+                <div id="linhaCentral"></div>
+
+
+                <!-- decoração da pista -->
+
+                <div id="marcasRua"></div>
+
+
+                <!-- obstáculos -->
+
+                <div id="obstaculos"></div>
+
+
+                <!-- moto -->
+
+                <div id="moto" aria-label="Motocicleta" role="img">
+                    <img src="moto.svg" alt="">
+                </div>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- CENÁRIO INFERIOR -->
+            <!-- ========================= -->
+
+            <div id="cidadeInferior"></div>
+
+
+            <!-- ========================= -->
+            <!-- ESCOLA -->
+            <!-- ========================= -->
+
+            <div id="escola" aria-label="Escola">
+                <img src="ChatGPT%20Image%2030_09_2026%2C%2010_50_13.png" alt="Escola CEDUP em pixel art">
+            </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- TELA INICIAL -->
+    <!-- ========================= -->
+
+    <div id="mensagem">
+
+        <div class="painel">
+
+            <div class="iconeGrande">
+                🛵
+            </div>
+
+            <h1>
+                CAMINHO EM OBRAS
+            </h1>
+
+            <p>
+                A estrada até a escola está
+                passando por manutenção.
+            </p>
+
+            <p>
+                Conduza com cuidado e desvie
+                dos obstáculos.
+            </p>
+
+            <div class="controles">
+                <div>↑ / ↓ ou W / S — mover na pista</div>
+                <div>← frear — → acelerar</div>
+                <div>Na faixa: pare por 5 segundos e ganhe 100 pontos</div>
+                <div>P — Pausar</div>
+            </div>
+
+            <button id="botaoIniciar">
+                INICIAR FASE
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- PAUSA -->
+    <!-- ========================= -->
+
+        <div id="telaPausa"
+            class="oculto">
+
+        <div class="painel">
+
+            <div class="iconeGrande">
+                ⏸️
+            </div>
+
+            <h1>
+                JOGO PAUSADO
+            </h1>
+
+            <p>
+                Pressione P para continuar.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- FINAL -->
+    <!-- ========================= -->
+
+    <div id="telaFinal"
+         class="oculto">
+
+        <div class="painel">
+
+            <div id="iconeFinal"
+                 class="iconeGrande">
+                🏆
+            </div>
+
+            <h1 id="resultado">
+                VOCÊ CHEGOU!
+            </h1>
+
+            <p>
+                ⭐ Pontuação:
+                <strong id="pontuacaoFinal">
+                    0
+                </strong>
+            </p>
+
+            <p>
+                ⏱️ Tempo:
+                <strong id="tempoFinal">
+                    0:00
+                </strong>
+            </p>
+
+            <p id="mensagemEstrelas" class="oculto"></p>
+
+            <button onclick="location.reload()">
+                JOGAR NOVAMENTE
+            </button>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

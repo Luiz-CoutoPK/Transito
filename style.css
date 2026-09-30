@@ -1,0 +1,2033 @@
+/* ================================= */
+/* RESET */
+/* ================================= */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+
+}
+
+
+body {
+
+    overflow: hidden;
+
+    background: #111;
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+/* ================================= */
+/* JOGO */
+/* ================================= */
+
+#jogo {
+
+    width: 100vw;
+    height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+/* ================================= */
+/* HUD */
+/* ================================= */
+
+#hud {
+
+    position: absolute;
+
+    top: 15px;
+    left: 25px;
+    right: 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    color: white;
+
+    z-index: 100;
+
+    pointer-events: none;
+
+}
+
+
+.hud-lado {
+
+    display: flex;
+
+    gap: 15px;
+
+}
+
+
+.hud-caixa {
+
+    padding: 9px 16px;
+
+    background: rgba(0,0,0,0.55);
+
+    border-radius: 10px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+}
+
+
+.hud-centro {
+
+    width: 420px;
+
+    text-align: center;
+
+}
+
+
+#tituloFase {
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    margin-bottom: 9px;
+
+    text-shadow:
+        2px 2px 3px #000;
+
+}
+
+
+#barraProgresso {
+
+    width: 100%;
+
+    height: 11px;
+
+    background: rgba(255,255,255,0.3);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+}
+
+
+#progresso {
+
+    width: 0%;
+
+    height: 100%;
+
+    background: #32d35b;
+
+    transition: width 0.1s linear;
+
+}
+
+
+/* ================================= */
+/* CENÁRIO */
+/* ================================= */
+
+#cenario {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #62aa57;
+
+}
+
+
+#mundo {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 15000px;
+    height: 100%;
+
+}
+
+
+/* ================================= */
+/* CIDADE */
+/* ================================= */
+
+#cidadeSuperior,
+#cidadeInferior {
+
+    position: absolute;
+
+    left: 0;
+
+    width: 15000px;
+
+    background: #62aa57;
+
+}
+
+
+#cidadeSuperior {
+
+    top: 0;
+
+    height: 25%;
+
+}
+
+
+#cidadeInferior {
+
+    bottom: 0;
+
+    height: 25%;
+
+}
+
+
+/* ================================= */
+/* PRÉDIOS */
+/* ================================= */
+
+.predio {
+
+    position: absolute;
+
+    width: 120px;
+
+    height: 150px;
+
+    background: #d7d7d7;
+
+    border: 5px solid #333;
+
+}
+
+
+.predio.cima {
+
+    bottom: 18px;
+
+}
+
+
+.predio.baixo {
+
+    top: 18px;
+
+}
+
+
+.janela {
+
+    position: absolute;
+
+    width: 30px;
+
+    height: 30px;
+
+    background: #50c9e8;
+
+    border: 3px solid #333;
+
+}
+
+
+.janela1 {
+
+    left: 18px;
+    top: 20px;
+
+}
+
+
+.janela2 {
+
+    right: 18px;
+    top: 20px;
+
+}
+
+
+.janela3 {
+
+    left: 18px;
+    top: 70px;
+
+}
+
+
+.janela4 {
+
+    right: 18px;
+    top: 70px;
+
+}
+
+
+/* ================================= */
+/* ÁRVORES */
+/* ================================= */
+
+.arvore {
+
+    position: absolute;
+
+    width: 70px;
+    height: 100px;
+
+}
+
+
+.arvore::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 30px;
+    bottom: 0;
+
+    width: 12px;
+    height: 45px;
+
+    background: #70452e;
+
+}
+
+
+.arvore::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 8px;
+    top: 0;
+
+    width: 55px;
+    height: 55px;
+
+    background: #278b45;
+
+    border: 4px solid #176332;
+
+    border-radius: 50%;
+
+}
+
+
+/* ================================= */
+/* RUA */
+/* ================================= */
+
+#rua {
+
+    position: absolute;
+
+    left: 0;
+
+    top: 25%;
+
+    width: 15000px;
+
+    height: 50%;
+
+    background:
+
+        linear-gradient(
+            #3d3d3d,
+            #343434
+        );
+
+    border-top: 7px solid #777;
+
+    border-bottom: 7px solid #777;
+
+    overflow: hidden;
+
+}
+
+
+/* ================================= */
+/* BORDAS DA RUA */
+/* ================================= */
+
+.bordaEstrada {
+
+    position: absolute;
+
+    left: 0;
+
+    width: 15000px;
+
+    height: 6px;
+
+    background: #eee;
+
+}
+
+
+.bordaCima {
+
+    top: 15px;
+
+}
+
+
+.bordaBaixo {
+
+    bottom: 15px;
+
+}
+
+
+/* ================================= */
+/* LINHA CENTRAL */
+/* ================================= */
+
+#linhaCentral {
+
+    position: absolute;
+
+    left: 0;
+
+    top: 50%;
+
+    width: 15000px;
+
+    height: 7px;
+
+    transform:
+        translateY(-50%);
+
+    background:
+
+        repeating-linear-gradient(
+
+            to right,
+
+            #f6c945 0px,
+            #f6c945 60px,
+
+            transparent 60px,
+            transparent 120px
+
+        );
+
+}
+
+
+/* ================================= */
+/* MARCAS DA RUA */
+/* ================================= */
+
+.marcaRua {
+
+    position: absolute;
+
+    width: 5px;
+    height: 25px;
+
+    background: #555;
+
+}
+
+
+/* ================================= */
+/* OBSTÁCULOS */
+/* ================================= */
+
+.obstaculo {
+
+    position: absolute;
+
+    z-index: 20;
+
+}
+
+
+/* ================================= */
+/* BURACO */
+/* ================================= */
+
+.buraco {
+
+    width: 90px;
+    height: 48px;
+
+    background: #101010;
+
+    border: 5px solid #202020;
+
+    border-radius: 50%;
+
+}
+
+
+.buraco::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+    top: 10px;
+
+    width: 45px;
+    height: 18px;
+
+    background: #252525;
+
+    border-radius: 50%;
+
+}
+
+
+/* ================================= */
+/* CONE */
+/* ================================= */
+
+.cone {
+
+    width: 45px;
+    height: 65px;
+
+}
+
+
+.cone::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 10px;
+    top: 3px;
+
+    width: 25px;
+    height: 48px;
+
+    background: #f28b22;
+
+    clip-path:
+        polygon(
+            50% 0%,
+            100% 100%,
+            0% 100%
+        );
+
+}
+
+
+.cone::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+    left: 2px;
+
+    width: 41px;
+    height: 9px;
+
+    background: white;
+
+    border-radius: 3px;
+
+}
+
+
+/* ================================= */
+/* BARREIRA */
+/* ================================= */
+
+.barreira {
+
+    width: 110px;
+    height: 48px;
+
+    background: #eee;
+
+    border: 5px solid #222;
+
+}
+
+
+.barreira::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 5px;
+    top: 5px;
+
+    width: 25px;
+    height: 28px;
+
+    background: #e64545;
+
+    box-shadow:
+
+        35px 0 #e64545,
+        70px 0 #e64545;
+
+}
+
+
+/* ================================= */
+/* CARRO */
+/* ================================= */
+
+.carro {
+
+    width: 120px;
+    height: 55px;
+
+    background: #d84b4b;
+
+    border: 5px solid #222;
+
+    border-radius:
+        15px 15px 8px 8px;
+
+}
+
+
+.carro::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 22px;
+    top: -28px;
+
+    width: 65px;
+    height: 30px;
+
+    background: #5fc5df;
+
+    border: 5px solid #222;
+
+    border-radius:
+        12px 12px 0 0;
+
+}
+
+
+.carro::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 10px;
+    bottom: -16px;
+
+    width: 25px;
+    height: 25px;
+
+    background: #111;
+
+    border-radius: 50%;
+
+    box-shadow:
+        70px 0 #111;
+
+}
+
+
+/* ================================= */
+/* MOTO */
+/* ================================= */
+
+#moto {
+
+    position: absolute;
+
+    width: 110px;
+    height: 70px;
+
+    left: 250px;
+
+    z-index: 50;
+
+}
+
+
+.moto-sombra {
+
+    position: absolute;
+
+    left: 10px;
+    bottom: 1px;
+
+    width: 90px;
+    height: 14px;
+
+    background:
+        rgba(0,0,0,0.3);
+
+    border-radius: 50%;
+
+}
+
+
+.moto-corpo {
+
+    position: absolute;
+
+    left: 15px;
+    top: 17px;
+
+    width: 78px;
+    height: 35px;
+
+    background: #13bce8;
+
+    border: 5px solid #111;
+
+    border-radius:
+        18px 28px 10px 18px;
+
+}
+
+
+.moto-banco {
+
+    position: absolute;
+
+    left: 12px;
+    top: -14px;
+
+    width: 40px;
+    height: 12px;
+
+    background: #553327;
+
+    border-radius: 10px;
+
+}
+
+
+.moto-guidão {
+
+    position: absolute;
+
+    right: -10px;
+    top: -22px;
+
+    width: 22px;
+    height: 27px;
+
+    border-right:
+        5px solid #111;
+
+}
+
+
+.moto-farol {
+
+    position: absolute;
+
+    right: -10px;
+    top: 4px;
+
+    width: 12px;
+    height: 12px;
+
+    background: #fff5a0;
+
+    border: 3px solid #111;
+
+    border-radius: 50%;
+
+}
+
+
+.moto-roda {
+
+    position: absolute;
+
+    bottom: -20px;
+
+    width: 26px;
+    height: 26px;
+
+    background: #111;
+
+    border:
+        5px solid #777;
+
+    border-radius: 50%;
+
+}
+
+
+.rodaTras {
+
+    left: -8px;
+
+}
+
+
+.rodaFrente {
+
+    right: -8px;
+
+}
+
+
+/* ================================= */
+/* ESCOLA */
+/* ================================= */
+
+#escola {
+
+    position: absolute;
+
+    left: 14500px;
+
+    top: 31%;
+
+    width: 260px;
+
+    z-index: 40;
+
+    text-align: center;
+
+}
+
+
+.predioEscola {
+
+    position: relative;
+
+    width: 260px;
+    height: 220px;
+
+    background: #d94444;
+
+    border:
+        8px solid #222;
+
+}
+
+
+.telhadoEscola {
+
+    position: absolute;
+
+    left: -25px;
+    top: -55px;
+
+    width: 290px;
+    height: 55px;
+
+    background: #8e6748;
+
+    border:
+        8px solid #222;
+
+}
+
+
+.janelaEscola {
+
+    display: inline-block;
+
+    margin: 35px 10px;
+
+    width: 55px;
+    height: 55px;
+
+    background: #4ac9e8;
+
+    border:
+        6px solid #333;
+
+}
+
+
+.portaEscola {
+
+    position: absolute;
+
+    bottom: 0;
+    left: 94px;
+
+    width: 65px;
+    height: 100px;
+
+    background: #704633;
+
+    border:
+        6px solid #222;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+
+}
+
+
+.nomeEscola {
+
+    margin-top: 12px;
+
+    color: white;
+
+    font-size: 26px;
+
+    font-weight: bold;
+
+    text-shadow:
+        2px 2px 3px #222;
+
+}
+
+
+/* ================================= */
+/* PAINÉIS */
+/* ================================= */
+
+#mensagem,
+#telaFinal,
+#telaPausa {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background:
+        rgba(0,0,0,0.48);
+
+    z-index: 200;
+
+}
+
+
+.painel {
+
+    width: 520px;
+
+    padding: 38px;
+
+    text-align: center;
+
+    color: white;
+
+    background:
+        rgba(15,15,15,0.97);
+
+    border:
+        2px solid #555;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,0.5);
+
+}
+
+
+.painel h1 {
+
+    margin-bottom: 18px;
+
+}
+
+
+.painel p {
+
+    margin: 12px 0;
+
+    line-height: 1.5;
+
+}
+
+
+.iconeGrande {
+
+    font-size: 65px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.controles {
+
+    margin-top: 20px;
+
+    padding: 14px;
+
+    background: #252525;
+
+    border-radius: 10px;
+
+    line-height: 1.8;
+
+}
+
+
+button {
+
+    margin-top: 25px;
+
+    padding: 14px 30px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #29a84a;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+button:hover {
+
+    transform: scale(1.05);
+
+}
+
+
+.oculto {
+
+    display: none !important;
+
+}
+
+
+/* ================================= */
+/* VISUAL APRIMORADO DA FASE          */
+/* ================================= */
+
+body {
+    background: #07111f;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+
+/* ================================= */
+/* MAPA DE SELEÇÃO DE FASES */
+/* ================================= */
+
+#telaStart {
+    position: fixed;
+    inset: 0;
+    z-index: 1400;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #06250b;
+}
+
+.tela-start-arte {
+    position: relative;
+    width: min(100vw, 200vh);
+    aspect-ratio: 1797 / 884;
+    max-height: 100vh;
+}
+
+.tela-start-arte img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#botaoStart {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    width: 25%;
+    height: 14%;
+    padding: 0;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}
+
+#botaoStart:hover {
+    background: rgba(255, 255, 255, .08);
+    transform: translate(-50%, -50%);
+}
+
+#botaoStart:focus-visible {
+    outline: 3px solid #fff0a8;
+    outline-offset: 3px;
+}
+
+#mapaFases {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: #123b2a;
+}
+
+#mapaFases.oculto {
+    display: none;
+}
+
+#faseExterna {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    background: #111;
+}
+
+#quadroFase {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+#voltarMapa {
+    position: absolute;
+    z-index: 1;
+    top: 12px;
+    left: 12px;
+}
+
+.mapa-quadro {
+    position: relative;
+    width: min(100%, calc((100vh - 36px) * 1.4));
+    aspect-ratio: 1004 / 717;
+    overflow: hidden;
+    border: 5px solid #172239;
+    box-shadow: 0 14px 0 #0a2117, 0 24px 45px rgba(0, 0, 0, .55);
+}
+
+.mapa-quadro > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+}
+
+.mapa-titulo {
+    position: absolute;
+    z-index: 2;
+    top: 3%;
+    left: 50%;
+    min-width: 230px;
+    padding: 7px 17px 9px;
+    color: #fff;
+    text-align: center;
+    background: rgba(23, 34, 57, .93);
+    border: 3px solid #fff0a8;
+    border-radius: 10px;
+    box-shadow: 0 3px 0 #0b1427;
+    transform: translateX(-50%);
+}
+
+.mapa-titulo span {
+    color: #ffe269;
+    font: bold 11px Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mapa-titulo h1 {
+    margin: 2px 0 0;
+    font-size: clamp(16px, 2.1vw, 24px);
+}
+
+.fase-mapa {
+    position: absolute;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: clamp(45px, 6.5vw, 65px);
+    height: clamp(45px, 6.5vw, 65px);
+    padding: 0;
+    color: #172239;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 0 rgba(16, 24, 38, .75), 0 0 0 3px rgba(23, 34, 57, .8);
+    font: bold clamp(21px, 3.4vw, 34px) Arial, sans-serif;
+    transform: translate(-50%, -50%);
+}
+
+.fase-mapa small {
+    position: absolute;
+    top: calc(100% + 7px);
+    left: 50%;
+    min-width: 82px;
+    padding: 3px 5px;
+    color: white;
+    font: bold clamp(8px, 1.15vw, 11px) Arial, sans-serif;
+    line-height: 1.1;
+    text-align: center;
+    text-shadow: 0 1px 2px #000;
+    background: rgba(23, 34, 57, .88);
+    border-radius: 4px;
+    transform: translateX(-50%);
+}
+
+.fase-pontos {
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: 50%;
+    padding: 3px 6px;
+    color: #fff;
+    font: bold 11px Arial, sans-serif;
+    white-space: nowrap;
+    background: #172239;
+    border: 2px solid #fff0a8;
+    border-radius: 4px;
+    transform: translateX(-50%);
+}
+
+.fase-mapa.desbloqueada {
+    cursor: pointer;
+    background: radial-gradient(circle at 35% 28%, #fff9bd, #f6c945 58%, #d98514);
+    animation: pulsarFase 1s ease-in-out infinite alternate;
+}
+
+.fase-mapa.desbloqueada:hover,
+.fase-mapa.desbloqueada:focus-visible {
+    outline: none;
+    filter: brightness(1.15);
+    transform: translate(-50%, -50%) scale(1.14);
+}
+
+.fase-mapa.bloqueada {
+    cursor: not-allowed;
+    color: #d9e0e6;
+    background: #526170;
+    opacity: .94;
+    pointer-events: none;
+}
+
+.fase-1 { left: 5%; top: 12%; }
+.fase-2 { left: 62%; top: 12%; }
+.fase-3 { left: 28%; top: 76%; }
+
+.mensagem-conclusao {
+    position: fixed;
+    inset: 0;
+    z-index: 1300;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(7, 17, 31, .78);
+}
+
+.mensagem-conclusao-painel {
+    width: min(100%, 420px);
+    padding: 26px;
+    color: #fff;
+    text-align: center;
+    background: #172239;
+    border: 4px solid #fff0a8;
+    border-radius: 10px;
+    box-shadow: 0 8px 0 #0a2117, 0 18px 38px rgba(0, 0, 0, .5);
+}
+
+.mensagem-conclusao-painel h2 {
+    margin-bottom: 10px;
+    color: #ffe269;
+}
+
+.mensagem-conclusao-painel p {
+    margin-bottom: 20px;
+}
+
+.mapa-dica {
+    position: absolute;
+    z-index: 2;
+    right: 2.2%;
+    bottom: 2.5%;
+    padding: 6px 10px;
+    color: #fff;
+    font: bold clamp(9px, 1.3vw, 13px) Arial, sans-serif;
+    text-align: center;
+    background: rgba(23, 34, 57, .9);
+    border: 2px solid #fff0a8;
+    border-radius: 7px;
+}
+
+@keyframes pulsarFase {
+    from { box-shadow: 0 4px 0 rgba(16, 24, 38, .75), 0 0 0 3px rgba(23, 34, 57, .8); }
+    to { box-shadow: 0 4px 0 rgba(16, 24, 38, .75), 0 0 0 6px rgba(255, 229, 93, .9); }
+}
+
+#cenario,
+#cidadeSuperior,
+#cidadeInferior {
+    background:
+        radial-gradient(circle at 15% 30%, rgba(255,255,255,.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 65%, rgba(255,255,255,.12) 0 2px, transparent 3px),
+        linear-gradient(#77bd62, #4f9a50);
+    background-size: 95px 80px, 130px 110px, auto;
+}
+
+/* A textura fica no mundo inteiro para não reiniciar no fim do mapa. */
+#cenario {
+    background: #4f9a50;
+}
+
+#mundo {
+    background:
+        radial-gradient(circle at 15% 30%, rgba(255,255,255,.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 65%, rgba(255,255,255,.12) 0 2px, transparent 3px),
+        linear-gradient(#77bd62, #4f9a50);
+    background-size: 95px 80px, 130px 110px, auto;
+}
+
+#cidadeSuperior,
+#cidadeInferior {
+    width: 100%;
+    background: transparent;
+}
+
+#rua {
+    background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.018) 0 2px, transparent 2px 8px),
+        linear-gradient(#424b55, #2d343d 48%, #252c34);
+    background-size: 8px 100%, 100% 100%;
+    background-repeat: repeat, no-repeat;
+    border-color: #9aa4ad;
+    box-shadow: inset 0 9px rgba(0,0,0,.16), inset 0 -9px rgba(0,0,0,.2);
+}
+
+.bordaEstrada,
+#linhaCentral {
+    width: 100%;
+}
+
+.bordaEstrada {
+    height: 8px;
+    background: repeating-linear-gradient(90deg, #f8fafc 0 26px, #e84a4a 26px 52px);
+    box-shadow: 0 2px 3px rgba(0,0,0,.3);
+}
+
+#linhaCentral {
+    height: 6px;
+    opacity: .95;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.35));
+}
+
+.predio {
+    background: linear-gradient(135deg, #f4d48d, #c98456);
+    border-color: #324052;
+    border-radius: 7px 7px 0 0;
+    box-shadow: 6px 7px 0 rgba(28,65,39,.24);
+}
+
+.janela {
+    background: linear-gradient(135deg, #d7fbff, #48a9c8);
+    border-color: #435363;
+    box-shadow: inset 2px 2px rgba(255,255,255,.45);
+}
+
+.arvore::before { background: linear-gradient(90deg, #5b3827, #8b5b38); }
+.arvore::after {
+    background: radial-gradient(circle at 35% 25%, #78d85c 0 16%, #31944a 46%, #186438 100%);
+    border-color: #14542f;
+    box-shadow: 4px 5px 0 rgba(23,74,34,.22);
+}
+
+.obstaculo { filter: drop-shadow(4px 6px 3px rgba(0,0,0,.35)); }
+
+.buraco {
+    background: radial-gradient(ellipse at 48% 40%, #0a0d10, #1d252d 58%, #39424a 61%, #14191e 75%);
+    border: 3px solid #1b2229;
+    box-shadow: inset 0 5px 7px rgba(0,0,0,.8);
+}
+
+.buraco::after { background: rgba(96,112,122,.22); transform: rotate(-10deg); }
+
+.cone::before {
+    left: 7px;
+    width: 31px;
+    height: 52px;
+    background: linear-gradient(90deg, #d65714, #ff941d 48%, #f15c14);
+    filter: drop-shadow(0 0 1px #80320e);
+}
+
+.cone::after {
+    left: 0;
+    width: 45px;
+    height: 12px;
+    background: linear-gradient(#f9b13a 0 35%, #fff 35% 63%, #e87418 63%);
+    border: 2px solid #b94b14;
+}
+
+.barreira {
+    background: repeating-linear-gradient(135deg, #fff 0 17px, #f04444 17px 34px);
+    border: 4px solid #35404b;
+    border-radius: 4px;
+    box-shadow: inset 0 -6px rgba(0,0,0,.12);
+}
+
+.barreira::before {
+    top: 38px;
+    left: 13px;
+    width: 12px;
+    height: 15px;
+    background: #28323b;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 65px 0 #28323b;
+}
+
+.carro {
+    background: linear-gradient(145deg, #fff 0 5%, var(--cor-carro, #ef5350) 7% 70%, #9c2630);
+    border: 4px solid #26313d;
+    border-radius: 18px 20px 10px 10px;
+    box-shadow: inset 0 -7px rgba(0,0,0,.16);
+}
+
+.carro::before {
+    left: 23px;
+    top: -25px;
+    width: 66px;
+    height: 29px;
+    background: linear-gradient(135deg, #dff9ff, #4d95bd);
+    border: 4px solid #26313d;
+    box-shadow: inset 4px 3px rgba(255,255,255,.55);
+}
+
+.carro::after {
+    left: 9px;
+    width: 27px;
+    height: 27px;
+    background: radial-gradient(circle, #aab5bf 0 20%, #18212a 23% 58%, #050709 61%);
+    border: 2px solid #111820;
+    box-shadow: 108px 0 0 -2px #111820, 108px 0 0 0 #050709;
+}
+
+.carro {
+    width: 155px;
+    height: 72px;
+    border-radius: 23px 26px 12px 12px;
+}
+
+.carro::before {
+    left: 31px;
+    top: -31px;
+    width: 87px;
+    height: 36px;
+    border-radius: 15px 17px 0 0;
+}
+
+.carro::after {
+    left: 12px;
+    bottom: -17px;
+    width: 31px;
+    height: 31px;
+    box-shadow: 108px 0 0 -2px #111820, 108px 0 0 0 #050709;
+}
+
+#moto { filter: drop-shadow(4px 7px 4px rgba(0,0,0,.4)); }
+
+.moto-sombra { background: rgba(2,7,13,.5); filter: blur(2px); }
+
+.moto-corpo {
+    background: linear-gradient(140deg, #e7ffff 0 8%, #39d8e9 10% 47%, #087ca8 78%, #075276);
+    border: 4px solid #142532;
+    border-radius: 22px 31px 13px 22px;
+    box-shadow: inset 0 5px rgba(255,255,255,.42), inset 0 -7px rgba(0,0,0,.18);
+}
+
+.moto-banco {
+    background: linear-gradient(#334252, #101923);
+    border: 2px solid #0a1119;
+    box-shadow: 0 2px 1px rgba(255,255,255,.2);
+}
+
+.moto-bateria {
+    position: absolute;
+    left: 30px;
+    top: 12px;
+    width: 28px;
+    height: 17px;
+    border: 2px solid #10212d;
+    border-radius: 3px;
+    background: #172d39;
+}
+
+.moto-bateria::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: 4px;
+    width: 4px;
+    height: 6px;
+    background: #10212d;
+}
+
+.moto-bateria span { display: block; width: 17px; height: 9px; margin: 2px; background: #72f38c; box-shadow: 0 0 7px #72f38c; }
+
+.moto-guidão { border-color: #1a2a36; }
+
+.moto-farol {
+    background: #fff8ae;
+    border-color: #192936;
+    box-shadow: 0 0 11px 3px rgba(255,245,160,.55);
+}
+
+.moto-roda {
+    background: radial-gradient(circle, #aebbc4 0 16%, #283640 19% 38%, #0d141a 42% 100%);
+    border-color: #0b1218;
+    box-shadow: inset 0 0 0 3px #495a65;
+}
+
+
+/* ================================= */
+/* SCOOTER ELÉTRICA — DETALHAMENTO    */
+/* ================================= */
+
+#moto {
+    width: 116px;
+    height: 82px;
+}
+
+.moto-sombra {
+    left: 4px;
+    bottom: 1px;
+    width: 104px;
+    height: 12px;
+    opacity: .72;
+}
+
+.moto-corpo {
+    left: 15px;
+    top: 24px;
+    width: 79px;
+    height: 31px;
+    border-width: 3px;
+    border-radius: 20px 29px 12px 15px;
+    overflow: visible;
+}
+
+/* Faixa inferior do chassi e acabamento da carenagem. */
+.moto-corpo::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    right: 7px;
+    bottom: 3px;
+    height: 8px;
+    border-radius: 3px 6px 10px 5px;
+    background: linear-gradient(90deg, #064565, #137ca2 55%, #075170);
+    box-shadow: inset 0 2px rgba(255,255,255,.19);
+}
+
+.moto-corpo::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 5px;
+    width: 14px;
+    height: 12px;
+    border-radius: 8px 2px 3px 7px;
+    background: #f0353e;
+    box-shadow: inset 0 2px rgba(255,255,255,.45), 2px 1px 0 #093c57;
+}
+
+.moto-banco {
+    left: 12px;
+    top: -13px;
+    width: 43px;
+    height: 13px;
+    border: 2px solid #111c25;
+    border-radius: 12px 15px 6px 8px;
+    background: linear-gradient(#465665, #111a23 70%);
+    transform: skewX(8deg);
+}
+
+.moto-bateria {
+    left: 27px;
+    top: 8px;
+    width: 30px;
+    height: 18px;
+    z-index: 2;
+    background: linear-gradient(135deg, #253c4b, #0c1b26);
+}
+
+.moto-bateria span {
+    width: 18px;
+    height: 4px;
+    margin: 5px 4px;
+    border-radius: 2px;
+    background: #7bff9a;
+    box-shadow: 0 0 6px #47dd77;
+}
+
+.moto-motor {
+    position: absolute;
+    left: 12px;
+    bottom: -14px;
+    width: 27px;
+    height: 16px;
+    z-index: 3;
+    border: 2px solid #172631;
+    border-radius: 6px;
+    background: repeating-linear-gradient(90deg, #405564 0 3px, #1c2d38 3px 6px);
+    box-shadow: 3px 4px 0 rgba(0,0,0,.22);
+}
+
+.moto-lanterna {
+    position: absolute;
+    left: -3px;
+    top: 8px;
+    z-index: 4;
+    width: 7px;
+    height: 10px;
+    border: 1px solid #54232a;
+    border-radius: 4px 1px 1px 4px;
+    background: #ff5964;
+    box-shadow: 0 0 6px rgba(255,53,67,.7);
+}
+
+.moto-garfo {
+    position: absolute;
+    right: 5px;
+    top: -12px;
+    z-index: 2;
+    width: 6px;
+    height: 42px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #cad8dc, #526874 48%, #e2eff0);
+    transform: rotate(18deg);
+    transform-origin: bottom;
+}
+
+.moto-garfo::after {
+    content: "";
+    position: absolute;
+    left: -5px;
+    bottom: -4px;
+    width: 16px;
+    height: 7px;
+    border: 2px solid #162530;
+    border-radius: 50% 50% 3px 3px;
+    border-bottom: 0;
+}
+
+.moto-painel {
+    position: absolute;
+    right: 10px;
+    top: -18px;
+    z-index: 5;
+    width: 13px;
+    height: 9px;
+    border: 2px solid #162530;
+    border-radius: 4px 4px 2px 2px;
+    background: #76e5ef;
+    box-shadow: inset 0 0 3px #fff;
+    transform: rotate(7deg);
+}
+
+.moto-guidão {
+    right: -8px;
+    top: -25px;
+    z-index: 4;
+    width: 26px;
+    height: 30px;
+    border-right: 4px solid #1a2a36;
+    transform: rotate(5deg);
+}
+
+.moto-guidão::before {
+    content: "";
+    position: absolute;
+    right: -6px;
+    top: -1px;
+    width: 16px;
+    height: 4px;
+    border-radius: 3px;
+    background: #172832;
+    transform: rotate(-12deg);
+}
+
+.moto-farol {
+    right: -12px;
+    top: 7px;
+    z-index: 6;
+    width: 13px;
+    height: 13px;
+    border-width: 2px;
+    background: radial-gradient(circle at 35% 35%, #fff, #fff6a8 43%, #edbd3f 100%);
+    box-shadow: 0 0 10px 3px rgba(255,245,160,.62);
+}
+
+.moto-roda {
+    bottom: -26px;
+    z-index: 1;
+    width: 31px;
+    height: 31px;
+    border: 3px solid #0a1116;
+    background: radial-gradient(circle, #c4d4d9 0 13%, #263842 16% 33%, #10191f 36% 65%, #222f35 67% 75%, #070b0e 78%);
+    box-shadow: inset 0 0 0 2px #536872;
+}
+
+.rodaTras { left: -7px; }
+.rodaFrente { right: -11px; }
+
+/* Ilustrações baseadas nas referências enviadas. */
+#moto {
+    width: 110px;
+    height: 70px;
+    z-index: 50;
+    filter: drop-shadow(3px 5px 3px rgba(0,0,0,.3));
+}
+
+#moto img {
+    display: block;
+    width: 150px;
+    height: 96px;
+    position: absolute;
+    left: -20px;
+    top: -13px;
+}
+
+#escola {
+    top: 0;
+    width: 330px;
+    height: 255px;
+    z-index: 40;
+    text-align: initial;
+}
+
+#escola img {
+    display: block;
+    width: 330px;
+    height: 255px;
+    image-rendering: pixelated;
+    overflow: visible;
+}
+
+/* Água acumulada deixa os bueiros com aparência de manutenção recente. */
+.buraco .poca {
+    position: absolute;
+    z-index: -1;
+    height: 25px;
+    border: 2px solid rgba(116, 204, 231, .76);
+    border-radius: 50%;
+    background:
+        radial-gradient(ellipse at 32% 28%, rgba(235, 255, 255, .92) 0 7%, transparent 9%),
+        radial-gradient(ellipse at 63% 69%, rgba(255, 255, 255, .52) 0 5%, transparent 7%),
+        linear-gradient(145deg, rgba(104, 206, 239, .84), rgba(32, 121, 177, .9));
+    box-shadow:
+        inset 0 -5px 6px rgba(8, 55, 92, .24),
+        0 2px 3px rgba(0, 0, 0, .23);
+}
+
+.buraco .poca-esquerda {
+    left: -28px;
+    top: 24px;
+    width: 58px;
+    transform: rotate(-12deg);
+}
+
+.buraco .poca-direita {
+    right: -32px;
+    top: -9px;
+    width: 64px;
+    transform: rotate(13deg);
+}
+
+/* A escola é o marco final: maior, com a mesma paleta quente e o brasão CEDUP. */
+/* A escola em pixel art marca a chegada no fim da estrada. */
+#escola {
+    width: 387px;
+    height: 310px;
+    top: 0;
+}
+
+#escola img {
+    width: 387px;
+    height: 310px;
+    image-rendering: pixelated;
+    filter: drop-shadow(5px 7px 3px rgba(0, 0, 0, .28));
+}
+
+.estrelas-hud {
+    color: #ffe26b;
+}
+
+.estrela-coletavel {
+    position: absolute;
+    z-index: 35;
+    width: 52px;
+    height: 52px;
+    color: #fff4a8;
+    font: 52px/52px Arial, sans-serif;
+    text-align: center;
+    text-shadow: 0 0 5px #f5aa20, 0 0 13px rgba(255, 218, 75, .9);
+    filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, .32));
+    animation: brilhoEstrela 1.2s ease-in-out infinite alternate;
+}
+
+.estrela-coletavel.coletada {
+    opacity: 0;
+    transform: scale(1.8) rotate(100deg);
+    pointer-events: none;
+    transition: opacity .25s, transform .25s;
+}
+
+@keyframes brilhoEstrela {
+    from { transform: translateY(0) scale(.92); }
+    to { transform: translateY(-7px) scale(1.08); }
+}
+
+#mensagemEstrelas {
+    color: #ffe36f;
+    font-weight: bold;
+    text-shadow: 0 1px 2px #4d3500;
+}
+
+.faixaPedestre {
+    position: absolute;
+    z-index: 4;
+    top: 18px;
+    bottom: 18px;
+    width: 190px;
+    pointer-events: none;
+    opacity: .82;
+    background: repeating-linear-gradient(to bottom,
+        rgba(255,255,255,.94) 0 14px,
+        transparent 14px 27px);
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.42));
+}
+
+.calcada {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 28px;
+    z-index: 5;
+    background:
+        repeating-linear-gradient(90deg, transparent 0 58px, rgba(81,88,91,.28) 58px 61px),
+        linear-gradient(#d5d2c7, #aaa99f);
+    border-top: 3px solid #777b78;
+    border-bottom: 3px solid #777b78;
+    box-shadow: 0 3px 4px rgba(0,0,0,.24);
+}
+
+.calcada-superior { top: calc(25% - 28px); }
+.calcada-inferior { top: 75%; }
+
+.placaPare {
+    position: absolute;
+    z-index: 30;
+    width: 60px;
+    height: 92px;
+    display: flex;
+    justify-content: center;
+}
+
+.placa-superior { top: calc(25% - 74px); }
+.placa-inferior { top: 75%; }
+
+.placaPare span {
+    position: relative;
+    z-index: 2;
+    width: 56px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: #cf302d;
+    border: 3px solid #f4eee0;
+    clip-path: polygon(28% 0,72% 0,100% 28%,100% 72%,72% 100%,28% 100%,0 72%,0 28%);
+    font: bold 13px Arial, sans-serif;
+    text-shadow: 0 1px 1px #6b1414;
+    filter: drop-shadow(1px 2px 2px rgba(0,0,0,.5));
+}
+
+.placaPare i {
+    position: absolute;
+    z-index: 1;
+    top: 42px;
+    bottom: 0;
+    width: 7px;
+    background: linear-gradient(90deg, #6e7472, #e0e0d7, #777d7b);
+    box-shadow: 1px 1px 2px rgba(0,0,0,.4);
+}
+
+.aviso-pare {
+    position: absolute;
+    z-index: 110;
+    top: 76px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 18px;
+    color: #fff;
+    background: rgba(133, 28, 24, .94);
+    border: 2px solid #ffe48c;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.38);
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.pedestre {
+    position: absolute;
+    z-index: 60;
+    width: 30px;
+    height: 58px;
+    pointer-events: none;
+    filter: drop-shadow(2px 3px 2px rgba(0,0,0,.4));
+}
+
+.pedestre::before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: 9px;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #563b2d;
+    border-radius: 50%;
+    background: #e9ad78;
+}
+
+.pedestre::after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 7px;
+    width: 17px;
+    height: 23px;
+    border: 2px solid rgba(35,45,54,.65);
+    border-radius: 6px 6px 3px 3px;
+    background: var(--roupa, #3478b8);
+}
+
+.pedestre i {
+    position: absolute;
+    top: 36px;
+    z-index: 1;
+    width: 6px;
+    height: 20px;
+    border-radius: 3px;
+    background: #303643;
+    transform-origin: top center;
+    animation: passoPedestre .28s ease-in-out infinite alternate;
+}
+
+.pedestre i:first-child { left: 8px; }
+.pedestre i:last-child { left: 17px; animation-delay: .14s; }
+.pedestre-azul { --roupa: #397fc0; }
+.pedestre-amarelo { --roupa: #d98b2b; }
+
+@keyframes passoPedestre {
+    from { transform: rotate(-16deg); }
+    to { transform: rotate(16deg); }
+}
+
+/* Fachadas urbanas com volumes, telhados e janelas mais legíveis. */
+.predio {
+    height: 158px;
+    width: 132px;
+    background: linear-gradient(105deg, var(--fachada-clara, #f2ca8a), var(--fachada, #c77b55));
+    border: 0;
+    border-radius: 9px 9px 0 0;
+    box-shadow: inset -9px 0 rgba(80, 45, 34, .18), 0 7px 0 rgba(37, 73, 42, .2);
+}
+
+.predio::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    right: -8px;
+    top: -12px;
+    height: 17px;
+    background: var(--telhado, #994f43);
+    border-radius: 6px 6px 2px 2px;
+    box-shadow: inset 0 4px rgba(255,255,255,.17), 0 3px rgba(53,48,42,.22);
+}
+
+.predio.baixo::before { top: auto; bottom: -9px; }
+
+.predio .janela {
+    width: 31px;
+    height: 34px;
+    background: linear-gradient(135deg, #d7f4ed, #68aeb6 70%);
+    border: 4px solid #f7e6c6;
+    border-radius: 4px 4px 2px 2px;
+    box-shadow: inset 0 0 0 1px rgba(37,76,83,.35), 0 2px 3px rgba(53,42,35,.2);
+}
+
+.predio .janela::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 0;
+    height: 100%;
+    border-left: 2px solid rgba(245,238,213,.9);
+}
+
+.predio.baixo .janela1, .predio.baixo .janela2 { top: 18px; }
+.predio.baixo .janela3, .predio.baixo .janela4 { top: 68px; }
+
+.arvore::before {
+    z-index: 1;
+    background: linear-gradient(90deg, #68402b, #9b6840, #68402b);
+    border-radius: 4px;
+}
+
+.arvore::after {
+    z-index: 2;
+    border-radius: 48% 52% 45% 45%;
+    box-shadow: -12px 10px 0 -4px #3c9c4e, 12px 8px 0 -3px #65bb52, 4px 5px 0 rgba(23,74,34,.25);
+}
